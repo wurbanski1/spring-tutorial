@@ -2,15 +2,18 @@ package com.acme.order.delivery;
 
 import java.util.Date;
 
-import lombok.Setter;
-
 import org.apache.commons.lang.time.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.acme.order.Customer;
 import com.acme.order.delivery.strategy.DeliveryTimeStrategy;
 import com.acme.order.delivery.strategy.PizzaTypeDeliveryTimeStrategy;
 import com.acme.order.pizza.PizzaType;
 
+import lombok.Setter;
+
+@Service
 public class BasicDeliveryTimeServiceImpl implements DeliveryTimeService {
 
 	@Setter
@@ -19,6 +22,11 @@ public class BasicDeliveryTimeServiceImpl implements DeliveryTimeService {
 	private DeliveryTimeStrategy strategy;
 
 	public BasicDeliveryTimeServiceImpl() {
+	}
+	
+	@Autowired
+	public BasicDeliveryTimeServiceImpl(TimeService timeService, DeliveryTimeStrategy deliveryTimeService) {
+		
 	}
 
 	public BasicDeliveryTimeServiceImpl(TimeService timeService) {

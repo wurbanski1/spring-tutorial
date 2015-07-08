@@ -24,11 +24,11 @@ public class BasicDeliveryTimeServiceImpl implements DeliveryTimeService {
 	public BasicDeliveryTimeServiceImpl() {
 	}
 	
-	@Autowired
 	public BasicDeliveryTimeServiceImpl(TimeService timeService, DeliveryTimeStrategy deliveryTimeService) {
 		
 	}
-
+	
+	@Autowired
 	public BasicDeliveryTimeServiceImpl(TimeService timeService) {
 		this.timeService = timeService;
 		this.strategy = new PizzaTypeDeliveryTimeStrategy();

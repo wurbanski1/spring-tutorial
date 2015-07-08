@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="orderFactory" class="com.acme.order.OrderFactory" />
+	<bean id="hashMapOrderRepository" class="com.acme.order.HashMapOrderRepository" />
+	<bean id="basicDeliveryTimeService" class="com.acme.order.delivery.BasicDeliveryTimeServiceImpl">
+		<constructor-arg ref="timeService"></constructor-arg>
+	</bean>
+	<bean id="timeService" class="com.acme.order.delivery.TimeService"></bean>
+
+	<bean id="deliveryTemplate" class="com.acme.order.notification.DeliveryTemplate"></bean>
+	<bean id="orderCancelledTemplate" class="com.acme.order.notification.OrderCancelledTemplate"></bean>
+	<bean id="simpleMessageTemplateService"
+		class="com.acme.order.notification.SimpleMessageTemplateService">
+		<property name="deliveryTemplate" ref="deliveryTemplate"></property>
+		<property name="cancelDeliveryTemplate" ref="orderCancelledTemplate"></property>
+	</bean>
+	<bean id="mailSender" class="com.acme.order.notification.MailSender"></bean>
+
+
+	<bean id="pizzaOrderServiceImpl" class="com.acme.order.pizza.PizzaOrderServiceImpl">
+		<property name="orderFactory" ref="orderFactory" />
+		<property name="orderRepository" ref="hashMapOrderRepository"></property>
+		<property name="deliveryTimeService" ref="basicDeliveryTimeService"></property>
+		<property name="messageTemplate" ref="simpleMessageTemplateService"></property>
+		<property name="mailSender" ref="mailSender"></property>
+	</bean>
+
+</beans>

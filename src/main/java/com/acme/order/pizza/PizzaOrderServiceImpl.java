@@ -3,8 +3,6 @@ package com.acme.order.pizza;
 import java.util.Date;
 import java.util.List;
 
-import lombok.extern.slf4j.Slf4j;
-
 import com.acme.order.Customer;
 import com.acme.order.HashMapOrderRepository;
 import com.acme.order.OrderFactory;
@@ -19,25 +17,24 @@ import com.acme.order.notification.MessageTemplateService;
 import com.acme.order.notification.OrderCancelledTemplate;
 import com.acme.order.notification.SimpleMessageTemplateService;
 
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 public class PizzaOrderServiceImpl implements PizzaOrderService {
 
-	private final MailSender mailSender;
-
-	private final OrderRepository orderRepository;
-
-	private final OrderFactory orderFactory;
-
-	private final DeliveryTimeService deliveryTimeService;
-
-	private final MessageTemplateService messageTemplate;
+	@Setter
+	private MailSender mailSender;
+	@Setter
+	private OrderRepository orderRepository;
+	@Setter
+	private OrderFactory orderFactory;
+	@Setter
+	private DeliveryTimeService deliveryTimeService;
+	@Setter
+	private MessageTemplateService messageTemplate;
 
 	public PizzaOrderServiceImpl() {
-		this.orderFactory = new OrderFactory();
-		this.orderRepository = new HashMapOrderRepository();
-		this.deliveryTimeService = new BasicDeliveryTimeServiceImpl(new TimeService());
-		this.messageTemplate = new SimpleMessageTemplateService();
-		this.mailSender = new MailSender();
 	}
 
 	public PizzaOrderServiceImpl(MailSender mailSender, OrderRepository orderRepository, OrderFactory orderFactory,
